@@ -29,9 +29,12 @@
     "test": "npm run build && mocha --compilers ts:ts-node/register",
     "coverage": "nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register",
     "watch": "npm run build -- --watch",
-    "watch:test": "npm run test -- --watch --reporter min"
+    "watch:test": "npm run test -- --watch --reporter min",
+    "postinstall": "postinstall-build lib \"npm run build\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "postinstall-build": "^3.0.0"
+  },
   "devDependencies": {
     "@types/chai": "^3.0.0",
     "@types/mocha": "^2.0.0",
@@ -46,7 +49,7 @@
     "coveralls": "^2.0.0"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=7.0.0"
   },
   "nyc": {
     "include": [

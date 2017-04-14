@@ -1,0 +1,13 @@
+coverage/
+node_modules/
+npm-debug.log
+.nyc_output
+
+src
+.vscode
+test
+.editorconfig
+.gitignore
+.travis.yml
+tsconfig.json
+tslint.json
