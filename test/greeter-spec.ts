@@ -1,8 +1,8 @@
-
+// tslint:disable-next-line:no-reference
 /// <reference path="../node_modules/@types/mocha/index.d.ts" />
 
-import { Greeter } from "../src/greeter";
 import * as chai from "chai";
+import { Greeter } from "../src/greeter";
 
 const expect = chai.expect;
 

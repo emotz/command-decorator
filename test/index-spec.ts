@@ -1,4 +1,4 @@
-
+// tslint:disable-next-line:no-reference
 /// <reference path="../node_modules/@types/mocha/index.d.ts" />
 
 import index = require("../src/index");
@@ -8,6 +8,6 @@ const expect = chai.expect;
 
 describe("index", () => {
   it("should provide Greeter", () => {
-    expect(index.Greeter).to.not.be.undefined;
+    expect(index.Greeter).to.not.be.an("undefined");
   });
 });
