@@ -4,5 +4,10 @@
     "MD013": false,
     "MD041": false,
     "MD029": false
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "lib": true,
+    "node_modules": true
   }
 }

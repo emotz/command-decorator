@@ -6,3 +6,6 @@ script:
   - npm run coverage  # run mocha unit tests with coverage
 after_script:
   - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls' # sends the coverage report to coveralls
+cache:
+  directories:
+  - node_modules

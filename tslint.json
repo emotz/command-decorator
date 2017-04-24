@@ -1,3 +1,14 @@
 {
-  "extends": "tslint:latest"
+  "$schema": "http://json.schemastore.org/tslint",
+  "extends": "tslint:latest",
+  "rules": {
+    "variable-name": [
+      "allow-leading-underscore"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ]
+  }
 }
