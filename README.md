@@ -4,7 +4,7 @@
 
 # command-decorator
 
-Incorporates Command Pattern using ES7 decorators.
+Implements Command Pattern using ESNext decorators.
 
 # Installation
 

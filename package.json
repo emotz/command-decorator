@@ -1,7 +1,7 @@
 {
   "name": "command-decorator",
   "version": "0.1.0",
-  "description": "Incorporates Command Pattern using ES7 decorators.",
+  "description": "Implements Command Pattern using ESNext decorators.",
   "license": "MIT",
   "repository": {
     "type": "git",
