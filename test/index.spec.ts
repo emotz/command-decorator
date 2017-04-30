@@ -1,5 +1,4 @@
-// tslint:disable-next-line:no-reference
-/// <reference path="../node_modules/@types/mocha/index.d.ts" />
+import 'mocha';
 
 import { expect } from 'chai';
 
