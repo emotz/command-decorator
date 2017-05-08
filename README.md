@@ -14,6 +14,8 @@ npm install https://github.com/emotz/command-decorator
 
 # Usage
 
+Tested on Windows, but should work on Linux/MacOS as well.
+
 ```ts
 import { Command, execute } from 'command-decorator';
 
