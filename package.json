@@ -1,75 +1,75 @@
 {
-  "name": "command-decorator",
-  "version": "0.1.0",
-  "description": "Implements Command Pattern using ESNext decorators.",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/emotz/command-decorator.git"
-  },
-  "bugs": {
-    "url": "https://github.com/emotz/command-decorator/issues"
-  },
-  "homepage": "https://github.com/emotz/command-decorator#readme",
-  "author": "emotz",
-  "keywords": [
-    "command",
-    "pattern",
-    "decorator"
-  ],
-  "files": [
-    "lib"
-  ],
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "scripts": {
-    "clean": "rimraf lib .nyc_output coverage",
-    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-    "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
-    "test": "mocha --compilers ts:ts-node/register",
-    "coverage": "nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register",
-    "watch": "npm run build -- --watch",
-    "watch:test": "set TS_NODE_IGNORE_WARNINGS=TRUE && npm run test -- --watch --reporter min",
-    "postinstall": "postinstall-build lib \"npm run build\""
-  },
-  "dependencies": {
-    "postinstall-build": "^3.0.0",
-    "ts-events": "^3.2.0"
-  },
-  "devDependencies": {
-    "rimraf": "^2.0.0",
-    "typescript": "^2.0.0"
-  },
-  "optionalDependencies": {
-    "@types/chai": "^3.0.0",
-    "@types/mocha": "^2.0.0",
-    "@types/node": "^7.0.0",
-    "@types/sinon": "^2.1.2",
-    "chai": "^3.0.0",
-    "coveralls": "^2.0.0",
-    "mocha": "^3.0.0",
-    "nyc": "^10.0.0",
-    "ts-node": "^3.0.0",
-    "tslint": "^5.0.0",
-    "sinon": "^2.1.0"
-  },
-  "engines": {
-    "node": ">=7.0.0"
-  },
-  "nyc": {
-    "include": [
-      "src/*.ts"
+    "name": "command-decorator",
+    "version": "0.1.0",
+    "description": "Implements Command Pattern using ESNext decorators.",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/emotz/command-decorator.git"
+    },
+    "bugs": {
+        "url": "https://github.com/emotz/command-decorator/issues"
+    },
+    "homepage": "https://github.com/emotz/command-decorator#readme",
+    "author": "emotz",
+    "keywords": [
+        "command",
+        "pattern",
+        "decorator"
     ],
-    "exclude": [
-      "lib"
+    "files": [
+        "lib"
     ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [],
-    "all": true
-  }
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts",
+    "scripts": {
+        "clean": "rimraf lib .nyc_output coverage",
+        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+        "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+        "test": "mocha --compilers ts:ts-node/register",
+        "coverage": "nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register",
+        "watch": "npm run build -- --watch",
+        "watch:test": "set TS_NODE_IGNORE_WARNINGS=TRUE && npm run test -- --watch --reporter min",
+        "postinstall": "postinstall-build lib \"npm run build\""
+    },
+    "dependencies": {
+        "postinstall-build": "^3.0.0",
+        "ts-events": "^3.2.0"
+    },
+    "devDependencies": {
+        "rimraf": "^2.0.0",
+        "typescript": "^2.0.0"
+    },
+    "optionalDependencies": {
+        "@types/chai": "^3.0.0",
+        "@types/mocha": "^2.0.0",
+        "@types/node": "^7.0.0",
+        "@types/sinon": "^2.1.2",
+        "chai": "^3.0.0",
+        "coveralls": "^2.0.0",
+        "mocha": "^3.0.0",
+        "nyc": "^10.0.0",
+        "ts-node": "^3.0.0",
+        "tslint": "^5.0.0",
+        "sinon": "^2.1.0"
+    },
+    "engines": {
+        "node": ">=7.0.0"
+    },
+    "nyc": {
+        "include": [
+            "src/*.ts"
+        ],
+        "exclude": [
+            "lib"
+        ],
+        "extension": [
+            ".ts"
+        ],
+        "require": [
+            "ts-node/register"
+        ],
+        "reporter": [],
+        "all": true
+    }
 }
