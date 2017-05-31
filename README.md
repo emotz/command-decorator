@@ -20,10 +20,10 @@ Tested on Windows, but should work on Linux/MacOS as well.
 import { Command, execute } from 'command-decorator';
 
 class TestCommand extends Command {
-  @execute
-  public async execute() {
-    return 10;
-  }
+    @execute
+    public async execute() {
+        return 10;
+    }
 }
 
 const cmd = new TestCommand();
