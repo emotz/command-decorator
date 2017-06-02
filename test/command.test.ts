@@ -7,6 +7,15 @@ import { Command, execute } from '../src/command';
 
 class TestCommand extends Command {
     @execute
+    public execute_with_fail() {
+        return new Promise((resolve, reject) => {
+            setImmediate(() => {
+                reject(true);
+            });
+        });
+    }
+
+    @execute
     public execute2() {
         return new Promise((resolve, reject) => {
             setImmediate(() => {
@@ -75,5 +84,43 @@ describe('command', () => {
         await promise;
         await promise2;
         assert(rejected);
+    });
+
+    it('should track history', async () => {
+        const cmd = new TestCommand();
+        assert(cmd.history.length === 0);
+        const promise = cmd.execute();
+        assert(cmd.history[0].cmd === "execute");
+        assert(cmd.history[0].status === Command.Status.Pending);
+
+        await promise;
+        assert(cmd.history[1].cmd === 'execute');
+        assert(cmd.history[1].status === Command.Status.Ok);
+    });
+
+    it('should track history for failed command', async () => {
+        const cmd = new TestCommand();
+        assert(cmd.history.length === 0);
+        const promise = cmd.execute_with_fail().catch(() => { /* empty */ });
+        assert(cmd.history[0].cmd === "execute_with_fail");
+        assert(cmd.history[0].status === Command.Status.Pending);
+
+        await promise;
+        assert(cmd.history[1].cmd === 'execute_with_fail');
+        assert(cmd.history[1].status === Command.Status.Failed);
+    });
+
+    it('should not track history for not-started commands', async () => {
+        const cmd = new TestCommand();
+
+        const promise = cmd.execute();
+        let rejected = false;
+        const promise2 = cmd.execute().catch(() => { rejected = true; });
+
+        assert(cmd.history.length === 1);
+
+        await promise;
+        await promise2;
+        assert(cmd.history.length === 2);
     });
 });
