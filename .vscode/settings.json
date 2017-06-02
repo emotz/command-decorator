@@ -10,5 +10,5 @@
         "lib": true,
         "node_modules": true
     },
-    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false
 }
