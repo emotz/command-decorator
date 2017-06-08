@@ -4,7 +4,6 @@ npm-debug.log
 .nyc_output
 .dir-locals.el
 
-src
 .vscode
 test
 .editorconfig
