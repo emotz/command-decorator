@@ -6,6 +6,7 @@ export class Command {
     public history: CommandHistoryEntry[] = [];
 
     private _is_executing = new ReactiveValue(false);
+    private _promise: Promise<any>;
 
     public is_executing() {
         return this._is_executing.val;
@@ -14,8 +15,10 @@ export class Command {
     /**
      * @returns Function to clear subscription.
      */
-    public on_executing(fn: (executing: boolean) => void) {
-        return this._is_executing.on_change(fn);
+    public on_executing(fn: (executing: boolean, promise: Promise<any>) => void) {
+        return this._is_executing.on_change((executing) => {
+            return fn(executing, this._promise);
+        });
     }
 }
 
@@ -35,11 +38,12 @@ function apply_execute(fn: (...args: any[]) => Promise<any>, propertyKey: string
         if (this._is_executing.val === true) {
             throw { reason: 'already executing' };
         }
+        this._promise = fn.call(this, ...args);
         this._is_executing.val = true;
         this.history.push(new CommandHistoryEntry(propertyKey, Status.Pending));
         let status: Status;
         try {
-            const result = await fn.call(this, ...args);
+            const result = await this._promise;
             status = Status.Ok;
             return result;
         } catch (e) {
