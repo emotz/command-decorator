@@ -1,56 +1,48 @@
-import { CommandHistoryEntry, Status } from './command-history-entry';
-import { ReactiveValue } from './reactive-value';
+import { CanExecuteResult } from './can-execute';
+import { make_reactive } from './deps';
+
+export enum Status {
+    Ok,
+    Failed,
+    Pending,
+}
 
 export class Command {
-    public static Status = Status;
-    public history: CommandHistoryEntry[] = [];
+    private _reactive = make_reactive({
+        history: [] as Array<{
+            cmd: string;
+            status: Status;
+        }>,
+        is_executing: false,
+        promise: undefined as Promise<any>,
+    });
 
-    private _is_executing = new ReactiveValue(false);
-    private _promise: Promise<any>;
-
+    /**
+     * Reactive
+     */
+    public get history() {
+        return this._reactive.history;
+    }
+    /**
+     * Reactive
+     */
     public is_executing() {
-        return this._is_executing.val;
+        return this._reactive.is_executing;
+    }
+    /**
+     * Reactive
+     */
+    public get promise() {
+        return this._reactive.promise;
     }
 
     /**
-     * @returns Function to clear subscription.
+     * Reactive
      */
-    public on_executing(fn: (executing: boolean, promise: Promise<any>) => void) {
-        return this._is_executing.on_change((executing) => {
-            return fn(executing, this._promise);
-        });
+    private _can_execute(): CanExecuteResult {
+        if (this.is_executing() === true) {
+            return { canExecute: false, reason: 'already executing' };
+        }
+        return { canExecute: true };
     }
-}
-
-/**
- * Decorator.
- */
-export function execute(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    const old_method = descriptor.value;
-    descriptor.value = apply_execute(old_method, propertyKey);
-}
-
-/**
- * "Old-fashion" decorator.
- */
-function apply_execute(fn: (...args: any[]) => Promise<any>, propertyKey: string) {
-    return async function(...args: any[]) {
-        if (this._is_executing.val === true) {
-            throw { reason: 'already executing' };
-        }
-        this._promise = fn.call(this, ...args);
-        this._is_executing.val = true;
-        this.history.push(new CommandHistoryEntry(propertyKey, Status.Pending));
-        let status: Status;
-        try {
-            const result = await this._promise;
-            status = Status.Ok;
-            return result;
-        } catch (e) {
-            status = Status.Failed;
-        } finally {
-            this._is_executing.val = false;
-            this.history.push(new CommandHistoryEntry(propertyKey, status));
-        }
-    };
 }

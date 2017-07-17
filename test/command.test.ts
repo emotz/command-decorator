@@ -1,9 +1,9 @@
 import 'mocha';
 
 import { assert, expect } from 'chai';
-import * as sinon from 'sinon';
 
-import { Command, execute } from '../src/command';
+import { Command, Status } from '../src/command';
+import { execute } from '../src/execute';
 
 class TestCommand extends Command {
     @execute
@@ -54,34 +54,14 @@ describe('command', () => {
         assert(!cmd.is_executing());
     });
 
-    it('should subscribe for execution change', async () => {
-        const spy = sinon.spy();
-        const cmd = new TestCommand();
-        cmd.on_executing(spy);
-        assert(!spy.called);
-
-        const promise = cmd.execute();
-        assert(spy.calledOnce);
-
-        assert((await promise) === true);
-        assert(spy.calledTwice);
-    });
-
     it('should prevent simultaneous execution of 2 actions in the same command', async () => {
-        const spy = sinon.spy();
         const cmd = new TestCommand();
-        cmd.on_executing(spy);
-        assert(!spy.called);
 
         const promise = cmd.execute();
-        assert(spy.calledOnce);
         let rejected = false;
         const promise2 = cmd.execute2().catch(() => { rejected = true; });
-        assert(spy.calledOnce);
 
         assert((await promise) === true);
-        assert(spy.calledTwice);
-        await promise;
         await promise2;
         assert(rejected);
     });
@@ -90,24 +70,24 @@ describe('command', () => {
         const cmd = new TestCommand();
         assert(cmd.history.length === 0);
         const promise = cmd.execute();
-        assert(cmd.history[0].cmd === "execute");
-        assert(cmd.history[0].status === Command.Status.Pending);
+        assert(cmd.history[0].cmd === 'execute');
+        assert(cmd.history[0].status === Status.Pending);
 
         await promise;
         assert(cmd.history[1].cmd === 'execute');
-        assert(cmd.history[1].status === Command.Status.Ok);
+        assert(cmd.history[1].status === Status.Ok);
     });
 
     it('should track history for failed command', async () => {
         const cmd = new TestCommand();
         assert(cmd.history.length === 0);
         const promise = cmd.execute_with_fail().catch(() => { /* empty */ });
-        assert(cmd.history[0].cmd === "execute_with_fail");
-        assert(cmd.history[0].status === Command.Status.Pending);
+        assert(cmd.history[0].cmd === 'execute_with_fail');
+        assert(cmd.history[0].status === Status.Pending);
 
         await promise;
         assert(cmd.history[1].cmd === 'execute_with_fail');
-        assert(cmd.history[1].status === Command.Status.Failed);
+        assert(cmd.history[1].status === Status.Failed);
     });
 
     it('should not track history for not-started commands', async () => {

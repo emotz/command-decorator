@@ -18,25 +18,20 @@
     "decorator"
   ],
   "files": [
-    "lib",
-    "src",
-    "tsconfig.json"
+    "lib"
   ],
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib .nyc_output coverage",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-    "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+    "build": "npm run lint && tsc --pretty",
     "test": "mocha --compilers ts:ts-node/register",
     "coverage": "nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register",
     "watch": "npm run build -- --watch",
-    "watch:test": "set TS_NODE_IGNORE_WARNINGS=TRUE && npm run test -- --watch --reporter min",
-    "postinstall": "postinstall-build lib \"npm run build\""
+    "watch:test": "set TS_NODE_IGNORE_WARNINGS=TRUE && npm run test -- --watch --reporter min"
   },
   "dependencies": {
-    "postinstall-build": "^3.0.0",
-    "ts-events": "^3.2.0",
     "rimraf": "^2.0.0",
     "typescript": "^2.0.0"
   },
