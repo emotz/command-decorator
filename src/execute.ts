@@ -21,12 +21,12 @@ function apply_execute(fn: any, property_key: string) {
             throw res;
         }
 
-        this._reactive.promise = fn.call(this, ...args);
-        this._reactive.is_executing = true;
         this._reactive.history.push({
             cmd: property_key,
             status: Status.Pending,
         });
+        this._reactive.promise = fn.call(this, ...args);
+        this._reactive.is_executing = true;
         let status: Status;
         try {
             const result = await this._reactive.promise;
@@ -36,11 +36,11 @@ function apply_execute(fn: any, property_key: string) {
             status = Status.Failed;
             throw e;
         } finally {
-            this._reactive.is_executing = false;
             this._reactive.history.push({
                 cmd: property_key,
                 status,
             });
+            this._reactive.is_executing = false;
         }
     };
 }
