@@ -1,12 +1,15 @@
 language: node_js
 node_js:
-  - '7'
+- '7'
 script:
-  - npm run clean
-  - npm run build
-  - npm run coverage
+- npm run clean
+- npm run build
+- npm run coverage
 after_script:
-  - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls' # sends the coverage report to coveralls
+- cat coverage/lcov.info | ./node_modules/.bin/coveralls
 cache:
   directories:
   - node_modules
+notifications:
+  slack:
+    secure: pL5ANKpWRiYqVFBk1UIJrIQmNNn50fkLfLPq6MXQQxEAgSuAbb6PGxAmi/rizXvFabxO4sQm0Die+PzN8PMrudT6qmMCtSOKODQZq5vpdXuEsYJ5Qxu1vtRS5l9L3AXpK93Fu2raDj4GDRzAM8BYZklIphxncBuitmi6CU4ZLKpYMIl/GdVF5CH1aVM+cszLn0HsxuEmzftjpQPkUkdutpE6WEboeloeywVQDiK3euFD72F+MrVqb9CkzIdPv6CytNebaM6P1hebTH08okpUdbu04JQpzIEExzNrHD5S5YIJuDHJN2vGtxYJNQ/VDH7YGJyP1hA82v1KSvJRXEni8Xe4TXrh/EqO33f0WGWidJOxJEtSgonkfzQgUqUHXVRcmRpXcmEU2DTBJX34B2ItlDpwtVafzqd9JWzvwjV/G3+LHPZO7Gl2welG4bYB8719TtaNpW6yH4eGWDDQegAF5YebMPn10QnvOlIiiq7I4zr8Pn+/hIhsFmxNMIV8HWtsQdkTspRJogAzskjFH5zCFsc1AsxLnKtZGADvLgbi8bptIMbX5dGOlAi+50FAkksE4cnpaqOS3LMRaA6WzIzh2dT4jh23Y9P9W9s+lZi0lQu87+kU6RDQZCcMj2sWNfrGgzCigHGvW4fWAQhpzr9qcQnnXBVgD43h6WayI0f38jM=
